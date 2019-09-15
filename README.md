@@ -1,2 +1,2 @@
 # MiniCode
-Several mini code for fast implementation of some numerical problems
+Several mini codes for fast implementation of some numerical problems
