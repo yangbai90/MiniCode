@@ -4,7 +4,7 @@ project(AsFem)
 set(CMAKE_CXX_STANDARD 14)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/Eigen")
+include_directories("/home/by/Programs/Eigen")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 ##############################################
 ### For debug mode                         ###
@@ -36,8 +36,10 @@ set(src ${src} src/Mesh/PrintMeshInfo.cpp)
 ### For dof handler                                               ###
 #####################################################################
 set(inc ${inc} include/DofHandler.h)
-set(src ${src} src/DofHandler/DofHandler.cpp)
+set(src ${src} src/DofHandler/DofHandler.cpp src/DofHandler/CreateDofMap.cpp)
+set(src ${src} src/DofHandler/PrintDofMap.cpp)
 
-#########################################3
+
+##########################################
 add_executable(asfem ${inc} ${src})
 

@@ -15,6 +15,9 @@ public:
     void CreateMesh(int nx=100,double xmin=0.0,double xmax=1.0,string meshtype="edge2");
 
     // get mesh information
+    inline int GetNodesNum() const {return _nNodes;}
+    inline int GetElmtsNum() const {return _nElmts;}
+    inline int GetNodesNumPerElmt() const {return _nNodesPerElmt;}
     inline double GetIthNodeJthCoord(const int &i,const int &j) const{
         return _NodeCoords[(i-1)*3+j-1];
     }
