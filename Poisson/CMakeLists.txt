@@ -41,17 +41,18 @@ set(src ${src} src/DofHandler/PrintDofMap.cpp)
 
 
 #####################################################################
-### For dof handler                                               ###
+### For equation system                                           ###
 #####################################################################
 set(inc ${inc} include/EquationSystem.h)
-
+set(src ${src} src/EquationSystem/EquationSystem.cpp)
+set(src ${src} src/EquationSystem/InitEquationSystem.cpp)
+set(src ${src} src/EquationSystem/CreateSparsityPattern.cpp)
 
 #####################################################################
 ### For FESystem                                                  ###
 #####################################################################
 set(inc ${inc} include/FESystem.h)
-set(src ${src} src/EquationSystem/EquationSystem.cpp)
-set(src ${src} src/EquationSystem/InitEquationSystem.cpp)
+
 
 
 ##########################################

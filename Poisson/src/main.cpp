@@ -4,6 +4,7 @@
 
 #include "Mesh.h"
 #include "DofHandler.h"
+#include "EquationSystem.h"
 
 using namespace std;
 
@@ -19,5 +20,11 @@ int main()
     DofHandler dofHandler;
     dofHandler.CreateDofMap(2,mesh);
     dofHandler.PrintDofMap();
+
+    EquationSystem equationSystem;
+    equationSystem.InitEquationSystem(dofHandler.GetDofsNum());
+    equationSystem.CreateSparsityPattern(dofHandler);
+    
+    
     return 0;
 }

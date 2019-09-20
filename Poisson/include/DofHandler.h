@@ -15,7 +15,17 @@ public:
     void CreateDofMap(int ndofspernode,Mesh &mesh);
 
     // get information
+    inline int GetElmtsNum() const {return _nElmts;}
+    inline int GetNodesNum() const {return _nNodes;}
+    inline int GetDofsNumPerElmt() const {return _nDofsPerElmt;}
+    inline int GetDofsNumPerNode() const {return _nDofsPerNode;}
+    inline int GetDofsNum() const {return _nDofs;}
     inline int GetIthNodeDofIndex(const int &i,const int &j) const {return _NodalDofMap[(i-1)*_nDofsPerNode+j-1];}
+    inline void GetIthElmtDofIndex(const int &e,vector<int> &elDofs){
+        for(int i=0;i<_nDofsPerElmt;++i){
+            elDofs[i]=_ElmtDofMap[(e-1)*_nDofsPerElmt+i];
+        }
+    }
     inline void GetIthElmtDofIndex(const int &e,int (&dofconn)[27]){
         for(int i=0;i<_nDofsPerElmt;++i){
             dofconn[i]=_ElmtDofMap[(e-1)*_nDofsPerElmt+i];

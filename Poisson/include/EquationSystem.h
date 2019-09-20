@@ -7,6 +7,8 @@
 
 #include "Eigen/Eigen"
 
+#include "DofHandler.h"
+
 using namespace std;
 
 typedef Eigen::Triplet<double> T;
@@ -17,6 +19,7 @@ public:
     EquationSystem();
 
     void InitEquationSystem(const int &ndofs);
+    void CreateSparsityPattern(DofHandler &dofHandler);
 
 public:
     // equation matrix for the system
