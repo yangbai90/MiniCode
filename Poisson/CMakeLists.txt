@@ -40,6 +40,20 @@ set(src ${src} src/DofHandler/DofHandler.cpp src/DofHandler/CreateDofMap.cpp)
 set(src ${src} src/DofHandler/PrintDofMap.cpp)
 
 
+#####################################################################
+### For dof handler                                               ###
+#####################################################################
+set(inc ${inc} include/EquationSystem.h)
+
+
+#####################################################################
+### For FESystem                                                  ###
+#####################################################################
+set(inc ${inc} include/FESystem.h)
+set(src ${src} src/EquationSystem/EquationSystem.cpp)
+set(src ${src} src/EquationSystem/InitEquationSystem.cpp)
+
+
 ##########################################
 add_executable(asfem ${inc} ${src})
 
