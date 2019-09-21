@@ -24,6 +24,16 @@ public:
     inline int GetIthElmtJthNodeIndex(const int &i,const int &j) const{
         return _Conn[(i-1)*_nNodesPerElmt+j-1];
     }
+    inline void GetIthElmtNodeIndex(const int &i,vector<int> &elConn){
+        for(int j=0;j<_nNodesPerElmt;j++){
+            elConn[j]=_Conn[(i-1)*_nNodesPerElmt+j];
+        }
+    }
+    inline void GetIthElmtNodeCoords(const int &i,vector<double> &elCoords){
+        for(int j=0;j<_nNodesPerElmt;j++){
+            elCoords[j]=GetIthNodeJthCoord(GetIthElmtJthNodeIndex(i,j+1),0);
+        }
+    }
     inline vector<int> GetIthElmtNodeIndex(const int &i) const{
         vector<int> temp;
         temp.reserve(_nNodesPerElmt);

@@ -1,7 +1,7 @@
 #include "EquationSystem.h"
 
 void EquationSystem::CreateSparsityPattern(DofHandler &dofHandler){
-    int e,i,j,ii,jj,iInd,jInd;
+    int e,i,j,iInd,jInd;
     int nDofsPerNode;
     nDofsPerNode=dofHandler.GetDofsNumPerNode();
     vector<int> elDofs;

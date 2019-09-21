@@ -48,11 +48,47 @@ set(src ${src} src/EquationSystem/EquationSystem.cpp)
 set(src ${src} src/EquationSystem/InitEquationSystem.cpp)
 set(src ${src} src/EquationSystem/CreateSparsityPattern.cpp)
 
+
+#####################################################################
+### For nonlinear solver                                          ###
+#####################################################################
+set(inc ${inc} include/NonlinearSolver.h)
+set(src ${src} src/NonlinearSolver/NonlinearSolver.cpp)
+set(src ${src} src/NonlinearSolver/Solve.cpp)
+set(src ${src} src/NonlinearSolver/NonLinearSolve.cpp)
+set(src ${src} src/NonlinearSolver/NewtonRaphson.cpp)
+set(src ${src} src/NonlinearSolver/CheckConvergence.cpp)
+
+#####################################################################
+### For nonlinear solver                                          ###
+#####################################################################
+set(inc ${inc} include/SolutionSystem.h)
+set(src ${src} src/SolutionSystem/SolutionSystem.cpp)
+
+#####################################################################
+### For FE                                                        ###
+#####################################################################
+set(inc ${inc} include/ShapeFun.h)
+set(src ${src} src/ShapeFun/ShapeFun.cpp)
+set(src ${src} src/ShapeFun/Compute1DLagrangeShapeFun.cpp)
+
+set(inc ${inc} include/QPoint.h)
+set(src ${src} src/QPoint/QPoint.cpp)
+set(src ${src} src/QPoint/Create1DGaussPoint.cpp)
+
+#####################################################################
+### For elmt system                                               ###
+#####################################################################
+set(inc ${inc} include/ElmtSystem.h)
+set(src ${src} src/ElmtSystem/ElmtLib.cpp)
+set(src ${src} src/ElmtSystem/Poisson.cpp)
+
 #####################################################################
 ### For FESystem                                                  ###
 #####################################################################
 set(inc ${inc} include/FESystem.h)
-
+set(src ${src} src/FESystem/FormKR.cpp)
+set(src ${src} src/FESystem/Init.cpp)
 
 
 ##########################################
