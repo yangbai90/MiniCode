@@ -23,18 +23,18 @@ void ElmtSystem::Poisson(const int &isw,
         JxW=w*shp.GetDetJac();
         gradPhi=0.0;phi=0.0;dphidt=0.0;
         for(i=1;i<=nNodes;++i){
-            gradPhi+=shp(i,1)*U[i-1];
-            phi+=shp(i,0)*U[i-1];
-            dphidt+=shp(i,0)*V[i-1];
+            gradPhi+=shp.shape_grad(i)*U[i-1];
+            phi+=shp.shape_value(i)*U[i-1];
+            dphidt+=shp.shape_grad(i)*V[i-1];
         }
         if(isw==3||isw==6)
         for(i=1;i<=nNodes;++i){
             // for residual
-            rhs(i-1)+=sigma*gradPhi*shp(i,1)*JxW+F*shp(i,0)*JxW;
+            rhs(i-1)+=sigma*gradPhi*shp.shape_grad(i)*JxW+F*shp.shape_value(i)*JxW;
             //
             if(isw==6){
                 for(j=1;j<=nNodes;++j){
-                    K.coeffRef(i-1,j-1)+=-sigma*shp(j,1)*shp(i,1)*JxW;
+                    K.coeffRef(i-1,j-1)+=-sigma*shp.shape_grad(j)*shp.shape_grad(i)*JxW;
                 }
             }
         }

@@ -19,7 +19,7 @@ using namespace std;
 class FESystem
 {
 public:
-    // FESystem();
+    FESystem(){IsInit=true;}
     void Init(Mesh &mesh);
     void SetBC(string side,string type,double bcvalue){bcSystem.SetBC(side,type,bcvalue);}
     void PresetDirichletBC(DofHandler &dofHandler,Eigen::VectorXd &U){
@@ -34,6 +34,7 @@ public:
     void PrintBCInfo() const{bcSystem.PrintBCInfo();}
     
 private:
+    bool IsInit=false;
     ElmtSystem elmtSystem;
     BCSystem bcSystem;
     ShapeFun shp;

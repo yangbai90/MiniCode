@@ -37,6 +37,9 @@ public:
     inline double  operator()(const int &i,const int &j) const {return _values[(i-1)*(_nDim+1)+j-1];}
     inline double& operator()(const int &i,const int &j) {return _values[(i-1)*(_nDim+1)+j-1];}
 
+    inline double shape_value(const int &i) const {return (*this)(i,0);}
+    inline double shape_grad(const int &i) const {return (*this)(i,1);}
+
 
 private:
     void Compute1DLagrangeShapeFun(const double &xi,const vector<double> &nodes) ;
