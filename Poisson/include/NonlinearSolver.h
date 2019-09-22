@@ -26,6 +26,7 @@ class NonlinearSolver
 {
 public:
     NonlinearSolver();
+    void Init();
     
     void SetMaxIters(const int &iters) {_MaxIters=iters;}
     void SetResidualRelTol(const double &tol) {_Rrtol=tol;}

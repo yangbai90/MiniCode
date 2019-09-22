@@ -14,7 +14,7 @@ public:
     ShapeFun();
     ShapeFun(int dim);
     void PreCalc();
-    void Calc(const double &xi,const vector<double> &nodes){
+    void Calc(const double &xi,const vector<double> &nodes) {
         Compute1DLagrangeShapeFun(xi,nodes);
     }// for 1D case
     // void Calc(const double &xi,const double &eta,const Nodes &nodes);// for 2D case
@@ -39,7 +39,7 @@ public:
 
 
 private:
-    void Compute1DLagrangeShapeFun(const double &xi,const vector<double> &nodes);
+    void Compute1DLagrangeShapeFun(const double &xi,const vector<double> &nodes) ;
 
   
 

@@ -4,4 +4,5 @@ bool NonlinearSolver::NonLinearSolve(Mesh &mesh,DofHandler &dofHandler,SolutionS
     if(_Method==NonLinearMethod::NEWTONRAPHSON){
         return NewtonRaphson(mesh,dofHandler,solutionSystem,equationSystem,feSystem);
     }
+    return false;
 }

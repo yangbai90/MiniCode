@@ -2,8 +2,8 @@
 
 void EquationSystem::CreateSparsityPattern(DofHandler &dofHandler){
     int e,i,j,iInd,jInd;
-    int nDofsPerNode;
-    nDofsPerNode=dofHandler.GetDofsNumPerNode();
+    // int nDofsPerNode;
+    // nDofsPerNode=dofHandler.GetDofsNumPerNode();
     vector<int> elDofs;
     elDofs.resize(dofHandler.GetDofsNumPerElmt(),0);
     _ZeroCoeffs.clear();

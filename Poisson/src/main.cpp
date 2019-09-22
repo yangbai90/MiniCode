@@ -17,12 +17,12 @@ int main()
     Welcome();
 
     Mesh mesh;
-    mesh.CreateMesh(10,0.0,1.0,"edge4");
-    mesh.PrintMeshInfo();
+    mesh.CreateMesh(10,0.0,1.0,"edge3");
+    // mesh.PrintMeshInfo();
 
     DofHandler dofHandler;
-    dofHandler.CreateDofMap(2,mesh);
-    dofHandler.PrintDofMap();
+    dofHandler.CreateDofMap(1,mesh);
+    // dofHandler.PrintDofMap();
 
     EquationSystem equationSystem;
     equationSystem.InitEquationSystem(dofHandler.GetDofsNum());
@@ -31,12 +31,17 @@ int main()
     FESystem feSystem;
     feSystem.Init(mesh);
 
+    feSystem.SetBC("left","dirichlet",1.0);
+    feSystem.PrintBCInfo();
+
     SolutionSystem solutionSystem;
     solutionSystem.Init(dofHandler.GetDofsNum());
 
     NonlinearSolver nonlinearSolver;
-    nonlinearSolver.NonLinearSolve(mesh,dofHandler,solutionSystem,equationSystem,feSystem);
+    nonlinearSolver.Init();
+    
+    return nonlinearSolver.NonLinearSolve(mesh,dofHandler,solutionSystem,equationSystem,feSystem);
     
     
-    return 0;
+    // return 0;
 }

@@ -2,7 +2,7 @@
 
 void ElmtSystem::Poisson(const int &isw,
                  const vector<double> &U,const vector<double> &V,const vector<double> &Coords,
-                 ShapeFun &shp,QPoint qpoint,
+                 ShapeFun &shp,QPoint &qpoint,
                  Eigen::MatrixXd &K,Eigen::VectorXd &rhs){
     if(isw==3||isw==6){
         rhs*=0.0;
@@ -10,8 +10,8 @@ void ElmtSystem::Poisson(const int &isw,
             K*=0.0;
         }
     }
-    double xi,w,detjac,JxW,gpInd;
-    double gradPhi,phi;
+    double xi,w,JxW,gpInd;
+    double gradPhi,phi,dphidt;
     double sigma=1.0;
     double F=2.0;
     int nNodes=int(Coords.size());
@@ -21,10 +21,11 @@ void ElmtSystem::Poisson(const int &isw,
         w=qpoint(gpInd,0);
         shp.Calc(xi,Coords);
         JxW=w*shp.GetDetJac();
-        gradPhi=0.0;phi=0.0;
+        gradPhi=0.0;phi=0.0;dphidt=0.0;
         for(i=1;i<=nNodes;++i){
             gradPhi+=shp(i,1)*U[i-1];
             phi+=shp(i,0)*U[i-1];
+            dphidt+=shp(i,0)*V[i-1];
         }
         if(isw==3||isw==6)
         for(i=1;i<=nNodes;++i){

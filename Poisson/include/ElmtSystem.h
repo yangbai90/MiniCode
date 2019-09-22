@@ -16,13 +16,13 @@ class ElmtSystem
 public:
     void ElmtLib(const int &isw,
                  const vector<double> &U,const vector<double> &V,const vector<double> &Coords,
-                 ShapeFun &shp,QPoint qpoint,
+                 ShapeFun &shp,QPoint &qpoint,
                  Eigen::MatrixXd &K,Eigen::VectorXd &rhs);
     
 private:
     void Poisson(const int &isw,
                  const vector<double> &U,const vector<double> &V,const vector<double> &Coords,
-                 ShapeFun &shp,QPoint qpoint,
+                 ShapeFun &shp,QPoint &qpoint,
                  Eigen::MatrixXd &K,Eigen::VectorXd &rhs);
 
 };

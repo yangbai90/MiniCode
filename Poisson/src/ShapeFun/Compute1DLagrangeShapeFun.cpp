@@ -46,10 +46,12 @@ void ShapeFun::Compute1DLagrangeShapeFun(const double &xi,const vector<double> &
     _dxdxi=0.0;_dydxi=0.0;_dzdxi=0.0;
     for(int i=1;i<=GetShapeFunNums();i++)
     {
-        _dxdxi+=(*this)(i,1)*nodes[i];
-        _dydxi+=(*this)(i,1)*nodes[i];
+        _dxdxi+=(*this)(i,1)*nodes[i-1];
+        // _dydxi+=(*this)(i,1)*nodes[i];
         // _dzdxi+=(*this)(i,1)*nodes[i];
+        // cout<<(*this)(i,1)<<" "<<nodes[i-1]<<endl;
     }
+    // cout<<endl;
     _DetJac=sqrt(_dxdxi*_dxdxi+_dydxi*_dydxi+_dzdxi*_dzdxi);
 
     if(abs(_DetJac)<1.0e-13)

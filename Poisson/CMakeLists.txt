@@ -9,7 +9,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 ##############################################
 ### For debug mode                         ###
 ##############################################
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -O2 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -O2 -Wall -Wextra -Werror")
 
 ##############################################
 ### For release mode                       ###
@@ -82,6 +82,15 @@ set(src ${src} src/QPoint/Create1DGaussPoint.cpp)
 set(inc ${inc} include/ElmtSystem.h)
 set(src ${src} src/ElmtSystem/ElmtLib.cpp)
 set(src ${src} src/ElmtSystem/Poisson.cpp)
+
+#####################################################################
+### For BC system                                                 ###
+#####################################################################
+set(inc ${inc} include/BCSystem.h)
+set(src ${src} src/BCSystem/BCSystem.cpp)
+set(src ${src} src/BCSystem/SetBC.cpp)
+set(src ${src} src/BCSystem/PrintBCInfo.cpp)
+set(src ${src} src/BCSystem/ApplyBC.cpp)
 
 #####################################################################
 ### For FESystem                                                  ###

@@ -31,7 +31,7 @@ public:
     }
     inline void GetIthElmtNodeCoords(const int &i,vector<double> &elCoords){
         for(int j=0;j<_nNodesPerElmt;j++){
-            elCoords[j]=GetIthNodeJthCoord(GetIthElmtJthNodeIndex(i,j+1),0);
+            elCoords[j]=GetIthNodeJthCoord(GetIthElmtJthNodeIndex(i,j+1),1);
         }
     }
     inline vector<int> GetIthElmtNodeIndex(const int &i) const{

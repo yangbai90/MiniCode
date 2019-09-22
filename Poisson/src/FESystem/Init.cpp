@@ -6,6 +6,6 @@ void FESystem::Init(Mesh &mesh){
     shp.PreCalc();
 
     qpoint.SetDim(1);
-    qpoint.SetQPointOrder(3);
+    qpoint.SetQPointOrder(4);
     qpoint.CreateQPoints();
 }

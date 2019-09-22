@@ -26,4 +26,5 @@ bool NonlinearSolver::CheckConvergence(){
             return false;
         }
     }
+    return false;
 }

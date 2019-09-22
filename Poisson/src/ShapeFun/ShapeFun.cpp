@@ -44,7 +44,11 @@ void ShapeFun::PreCalc()
                 break;
         }
         _nValues=(1+GetDim())*_nFuns;
-        _values.resize(_nValues,0.0);
+        _values.clear();
+        _values.reserve(_nValues);
+        for(int i=0;i<_nValues;++i){
+            _values.push_back(0.0);
+        }
     }
     else
     {
