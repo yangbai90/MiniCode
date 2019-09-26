@@ -17,7 +17,7 @@ int main()
     Welcome();
 
     Mesh mesh;
-    mesh.CreateMesh(10,0.0,1.0,"edge3");
+    mesh.CreateMesh(1000,0.0,1.0,"edge4");
     // mesh.PrintMeshInfo();
 
     DofHandler dofHandler;

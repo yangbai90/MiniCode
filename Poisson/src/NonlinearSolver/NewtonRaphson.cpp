@@ -24,7 +24,7 @@ bool NonlinearSolver::NewtonRaphson(Mesh &mesh,DofHandler &dofHandler,SolutionSy
         Iters+=1;
         solutionSystem._U+=equationSystem._dU;
 
-        // printf("*** Iters=%2d, Maxiter=%d, |R|=%12.5e, |E|=%12.5e\n",Iters,_MaxIters,_Rnorm,_Enorm);
+        printf("*** Iters=%2d, Maxiter=%d, |R|=%12.5e, |E|=%12.5e\n",Iters,_MaxIters,_Rnorm,_Enorm);
 
         if(CheckConvergence()){
             // cout<<"works"<<endl;
