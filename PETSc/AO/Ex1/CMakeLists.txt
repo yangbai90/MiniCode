@@ -23,13 +23,13 @@ link_libraries("${MPI_DIR}/lib/libmpi.so")
 ###############################################
 ### For debug mode                          ###
 ###############################################
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -fopenmp -O2")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -fopenmp -O2")
 
 
 ###############################################
 ### For release mode                        ###
 ###############################################
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fopenmp -O3 -march=native -DNDEBUG")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -fopenmp -O3 -march=native -DNDEBUG")
 
 
 
@@ -39,7 +39,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -fopenmp -O2")
 ### For all the source code                 ###
 ###############################################
 set(src main.cpp)
-set(src ${src} Mesh.h Mesh.cpp)
+set(src ${src} Mesh.h Mesh.cpp TestFuns.h)
 
 
 
