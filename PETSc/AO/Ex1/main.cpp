@@ -16,6 +16,8 @@ int main(int args,char *argv[]){
     PetscErrorCode ierr;
     Mat A;
     Vec rhs;
+    Vec U,V;
+    Vec Proj,Hist;
     // AO ao;
     PetscMPIInt rank,size;
     int ne=500;
@@ -28,9 +30,13 @@ int main(int args,char *argv[]){
 
     ierr=PetscInitialize(&args,&argv,NULL,NULL);
 
+    MPI_Comm_size(PETSC_COMM_WORLD,&size);
+    MPI_Comm_rank(PETSC_COMM_WORLD,&rank);
+
     PetscOptionsGetInt(NULL,NULL,"-ne",&ne,NULL);
 
     Mesh mesh(ne,ne);
+
     mesh.CreateMesh();
 
     PetscSynchronizedPrintf(PETSC_COMM_WORLD,"*** Number of nodes=%8d, number of elmts=%8d\n",mesh.GetNodesNum(),mesh.GetElmtsNum());
@@ -46,10 +52,39 @@ int main(int args,char *argv[]){
     VecSetFromOptions(rhs);
     VecSetUp(rhs);
 
+    VecCreate(PETSC_COMM_WORLD,&U);
+    VecSetSizes(U,PETSC_DECIDE,mesh.GetNodesNum());
+    VecSetFromOptions(U);
+    VecSetUp(U);
+
+    VecCreate(PETSC_COMM_WORLD,&V);
+    VecSetSizes(V,PETSC_DECIDE,mesh.GetNodesNum());
+    VecSetFromOptions(V);
+    VecSetUp(V);
 
 
-    MPI_Comm_size(PETSC_COMM_WORLD,&size);
-    MPI_Comm_rank(PETSC_COMM_WORLD,&rank);
+    VecCreate(PETSC_COMM_WORLD,&Proj);
+    VecSetSizes(Proj,PETSC_DECIDE,mesh.GetNodesNum()*12);
+    VecSetFromOptions(Proj);
+    VecSetUp(Proj);
+
+    VecCreate(PETSC_COMM_WORLD,&Hist);
+    VecSetSizes(Hist,PETSC_DECIDE,mesh.GetNodesNum()*9);
+    VecSetFromOptions(Hist);
+    VecSetUp(Hist);
+
+
+
+    int i1,i2;
+    VecGetOwnershipRange(U,&i1,&i2);
+    for(i=i1;i<i2;++i){
+        VecSetValue(U,i,sin(1.0*i),INSERT_VALUES);
+        VecSetValue(V,i,cos(1.0*i),INSERT_VALUES);
+    }
+    VecAssemblyBegin(U);
+    VecAssemblyEnd(U);
+    VecAssemblyBegin(V);
+    VecAssemblyEnd(V);
 
     if(rank==0){
         starttime=chrono::high_resolution_clock::now();
@@ -105,12 +140,64 @@ int main(int args,char *argv[]){
     PetscSynchronizedPrintf(PETSC_COMM_WORLD,"Normal FEM assemble finished, time=%14.6e s\n\n",
       chrono::duration_cast<std::chrono::microseconds>(endtime-starttime).count()/1.0e6);
 
+    
+    //*********************************************
+    if(rank==0){
+        starttime=chrono::high_resolution_clock::now();
+    }
+    
+    PetscSynchronizedPrintf(PETSC_COMM_WORLD,"\nNow we do scattered FEM assemble ...\n");
+
+    ScatterFEMAssemble(mesh,U,A,rhs);
+
+    if(rank==0){
+        endtime=chrono::high_resolution_clock::now();
+    }
+    PetscSynchronizedPrintf(PETSC_COMM_WORLD,"Scattered FEM assemble finished, time=%14.6e s\n\n",
+      chrono::duration_cast<std::chrono::microseconds>(endtime-starttime).count()/1.0e6);
+
+    //*********************************************
+    if(rank==0){
+        starttime=chrono::high_resolution_clock::now();
+    }
+    
+    PetscSynchronizedPrintf(PETSC_COMM_WORLD,"\nNow we do scattered U-V FEM assemble ...\n");
+
+    Scatter1FEMAssemble(mesh,U,V,A,rhs);
+
+    if(rank==0){
+        endtime=chrono::high_resolution_clock::now();
+    }
+    PetscSynchronizedPrintf(PETSC_COMM_WORLD,"Scattered U-V FEM assemble finished, time=%14.6e s\n\n",
+      chrono::duration_cast<std::chrono::microseconds>(endtime-starttime).count()/1.0e6);
+
+    //*********************************************
+    if(rank==0){
+        starttime=chrono::high_resolution_clock::now();
+    }
+    
+    PetscSynchronizedPrintf(PETSC_COMM_WORLD,"\nNow we do scattered U-V-Hist FEM assemble ...\n");
+
+    Scatter2FEMAssemble(mesh,U,V,Proj,Hist,A,rhs);
+
+    if(rank==0){
+        endtime=chrono::high_resolution_clock::now();
+    }
+    PetscSynchronizedPrintf(PETSC_COMM_WORLD,"Scattered U-V-Hist FEM assemble finished, time=%14.6e s\n\n",
+      chrono::duration_cast<std::chrono::microseconds>(endtime-starttime).count()/1.0e6);
+
 
 
 
 
     MatDestroy(&A);
     VecDestroy(&rhs);
+
+    VecDestroy(&U);
+    VecDestroy(&V);
+
+    VecDestroy(&Proj);
+    VecDestroy(&Hist);
 
     PetscFinalize();
     return ierr;
